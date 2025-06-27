@@ -1,6 +1,7 @@
 import type {Idiom, Translations} from "../types.ts";
 import {useEffect, useState} from "react";
 import {supabase} from "../lib/supabaseClient.ts";
+import {Link} from "react-router-dom";
 
 interface IdiomItemProps {
     idiom: Idiom;
@@ -29,13 +30,19 @@ export function Idiom({ idiom }: IdiomItemProps) {
 
     return (
         <li className="border p-4 rounded shadow mb-4">
-            <h3 className="font-bold text-lg">{idiom.text} <span className="text-gray-500">({idiom.language})</span>
-            </h3>
+            <Link to={`/idioms/${idiom.id}`}>
+                <h3 className="font-bold text-lg">
+                    {idiom.text}
+                    <span className="text-gray-500">
+                    ({idiom.language})
+                </span>
+                </h3>
+            </Link>
             {idiom.description && <p className="text-sm italic">{idiom.description}</p>}
 
             {translations.length > 0 ? (
                 <div className="mt-2">
-                    <h4 className="font-semibold">Translations:</h4>
+                <h4 className="font-semibold">Translations:</h4>
                     <ul className="list-disc list-inside">
                         {translations.map(t => (
                             <li key={t.id}>
